@@ -1,0 +1,32 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 7vh;
+}
+.navigation-leftBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navigation-leftBlock-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navigation-button {
+}
+
+img {
+  cursor: pointer;
+}
+button {
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+hr {
+  margin: 0px;
+}

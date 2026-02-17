@@ -1,0 +1,22 @@
+.figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.caption-side {
+  overflow-wrap: normal;
+  margin-right: 20px;
+  width: 500px;
+  height: 500px;
+}
+
+.figcaption {
+  overflow-wrap: normal;
+}
+
+.image {
+  box-shadow: 10px 10px 15px -5px #777777;
+  border-radius: 15px;
+}

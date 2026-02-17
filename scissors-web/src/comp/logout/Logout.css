@@ -1,0 +1,20 @@
+.section {
+  background-color: rgb(225, 250, 255);
+  padding: 200px;
+}
+.login-box {
+  background-color: #ffffff;
+  padding: 60px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px -5px #777777;
+}
+h1 {
+  font-size: 50px;
+}
+.button-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  gap: 25px;
+}
