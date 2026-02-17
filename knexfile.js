@@ -14,7 +14,6 @@ module.exports = {
       database: process.env.DB_NAME,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      filename: './dev.sqlite3',
     },
     migrations: {
       directory: './db/migrations',

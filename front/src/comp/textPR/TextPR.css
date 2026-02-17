@@ -1,0 +1,16 @@
+.text-container {
+  text-align: center;
+  height: auto;
+  margin: 150px 0px;
+}
+.sub-title {
+  color: #989ea3;
+}
+
+hr {
+  border: none;
+  border-top: 2px dashed #333; /* 2pxの点線 */
+  color: #fff;
+  background-color: #fff;
+  height: 1px;
+}

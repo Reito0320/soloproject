@@ -2,9 +2,10 @@
   background-color: rgb(202, 211, 214);
 }
 
-h1 {
+.title {
   text-align: center;
   padding-top: 20px;
+  margin: 0px;
 }
 
 .form-back {
