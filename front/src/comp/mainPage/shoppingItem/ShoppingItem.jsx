@@ -10,16 +10,16 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc }) => {
   const getUserTakeInCartData = async () => {
     if (!itemCount) return;
 
-    const result = {
+    const result = JSON.stringify({
       itemName: itemTitle,
       itemPrice: price,
       itemCount: itemCount,
       sum: price * itemCount,
-    };
+    });
     await fetch('http://localhost:3000/shopping/004', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(result),
+      body: result,
     });
   };
   return (

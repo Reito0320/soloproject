@@ -28,11 +28,36 @@ const buildServer = () => {
       });
     } else {
       /* stock在庫管理に関して、また考える */
-      await knex('products').insert({
-        name: body.itemName,
-        price: body.itemPrice,
-        stock: body.itemCount,
-      });
+      /* まずproducts tableへのinsert */
+
+      /* stockに関しての大元の在庫量に関して不明だったので、一旦購入数で値を設定 */
+      const insertProductsResult = await knex('products')
+        .insert({
+          name: body.itemName,
+          price: body.itemPrice,
+          stock: body.itemCount,
+        })
+        .returning('*');
+
+      /* cart系 tableへのinsert */
+      /* この時点でログインしているuserのuserIdを取得する */
+      const usersInIdColumn = await knex('users').select('user_id');
+      const targetUserId = [...usersInIdColumn].pop().user_id;
+      /* それを元にcart tableのcolumnに値をinsert */
+      const insertUsersResult = await knex('cart')
+        .insert({ user_id: targetUserId })
+        .returning('*');
+
+      /* cart_itemsへのinsert */
+      /* product_idがまだ未定だったがこの処理の前にproduct_idの作成が可能なことに気づいた。 */
+      const insertCartItemsResult = await knex('cart_items')
+        .insert({
+          cart_id: insertUsersResult[0].cart_id,
+          product_id: insertProductsResult[0].products_id,
+          count: body.itemCount,
+        })
+        .returning('*');
+
       return res.send({
         massage: 'success',
       });
@@ -46,6 +71,12 @@ const buildServer = () => {
     return res.send({
       message: 'done',
     });
+  });
+
+  /* cartPageに移行時データの取得をして、そのデータを元にuiを作成 */
+  app.get('/cart', async (req, res) => {
+    /* これはtableをくっつけてdataを抽出しないといけないやつかも。。 */
+    // const cartData = await knex("users").where("");
   });
 
   return app;
