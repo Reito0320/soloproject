@@ -18,7 +18,7 @@
 }
 
 img {
-  cursor: pointer;
+  cursor: default;
 }
 button {
   outline: none;

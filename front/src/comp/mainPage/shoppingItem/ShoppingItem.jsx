@@ -14,7 +14,6 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc }) => {
       itemName: itemTitle,
       itemPrice: price,
       itemCount: itemCount,
-      sum: price * itemCount,
     });
     await fetch('http://localhost:3000/shopping/004', {
       method: 'POST',

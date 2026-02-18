@@ -12,6 +12,11 @@ import { Cart } from './comp/mainPage/cart/Cart';
 function App() {
   // const [isLoading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
+  /* 待機画面のアニメーションのためのstate */
+  const [isLoading, setIsLoading] = useState(false);
+  /* ログインしているしていないかのstate */
+  /* ログイン処理をするのはlogin compと logout compなのでそこに送る */
+  /* uiの所在はheaderなので、stateはheaderへ */
   const [isLogin, setIsLogin] = useState(false);
 
   useState(() => {
@@ -91,7 +96,10 @@ function App() {
           path="/login"
           element={<Login setIsLogin={setIsLogin} />}
         ></Route>
-        <Route path="/logout" element={<Logout />}></Route>
+        <Route
+          path="/logout"
+          element={<Logout setIsLogin={setIsLogin} />}
+        ></Route>
         <Route path="/cart" element={<Cart />}></Route>
       </Routes>
     </>

@@ -4,6 +4,7 @@ import { CiLogin } from 'react-icons/ci';
 import { CiLogout } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { LuArchiveRestore } from 'react-icons/lu';
+import { FaRegUser } from 'react-icons/fa';
 
 export const Header = () => {
   return (
@@ -11,7 +12,8 @@ export const Header = () => {
       <nav className="navigation">
         <div>
           {/* loadingするとuserDataがなくなるので、本来はcookieを使いたいが一旦localに保存 */}
-          {localStorage.getItem('isAuth') && (
+          {/* 更新するたびにlocalを参照すればいいのでは？ */}
+          {localStorage.getItem('isAuth') ? (
             <div className="user-info">
               <img
                 className="goggle-picture"
@@ -21,6 +23,11 @@ export const Header = () => {
               <span className="user-name">
                 {JSON.parse(localStorage.getItem('authData')).userName}
               </span>
+            </div>
+          ) : (
+            <div className="user-info">
+              <FaRegUser size={30} />
+              <span className="user-name">ゲスト</span>
             </div>
           )}
         </div>

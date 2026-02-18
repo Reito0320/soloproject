@@ -3,10 +3,11 @@ import { FormSection } from '../../section/formSection/FormSection';
 import './Logout.css';
 import { useNavigate } from 'react-router-dom';
 
-export const Logout = () => {
+export const Logout = ({ setIsLogin }) => {
   const navigate = useNavigate();
   const onClickEvent = () => {
     localStorage.clear();
+    setIsLogin((prev) => !prev);
     navigate('/');
   };
   return (

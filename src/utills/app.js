@@ -28,8 +28,8 @@ const buildServer = () => {
       });
     } else {
       /* stock在庫管理に関して、また考える */
-      /* まずproducts tableへのinsert */
 
+      /* まずproducts tableへのinsert */
       /* stockに関しての大元の在庫量に関して不明だったので、一旦購入数で値を設定 */
       const insertProductsResult = await knex('products')
         .insert({
@@ -67,10 +67,11 @@ const buildServer = () => {
   /* login時のデータの取得 */
   app.post('/login', async (req, res) => {
     const body = req.body;
-    await knex('users').insert({ name: body.userName, email: body.email });
-    return res.send({
-      message: 'done',
-    });
+    const currentUserId = await knex('users')
+      .insert({ name: body.userName, email: body.email })
+      .returning('*');
+    console.log(currentUserId);
+    return res.send({ data: currentUserId[0] });
   });
 
   /* cartPageに移行時データの取得をして、そのデータを元にuiを作成 */

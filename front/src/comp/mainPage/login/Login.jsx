@@ -5,25 +5,36 @@ import { useNavigate } from 'react-router-dom';
 import { AnimationButton } from '../../atoms/button/AnimationButton';
 import { FormSection } from '../../section/formSection/FormSection';
 
+/* loginデータのinsertとlocalstorageへの保存と現在ログイン中のuserのidを取得 */
+/* 三つも仕事をしているので役割を分けたい */
 export const Login = ({ setIsLogin }) => {
   const navigate = useNavigate();
 
   const userGoogleLogin = async () => {
     const res = await signInWithPopup(auth, provider);
-    const authData = JSON.stringify({
+    const authData = {
       userName: res.user.displayName,
-      email: res.user.email,
       photoURL: res.user.photoURL,
-    });
+    };
     /* 本当はクッキーを使いたい */
-    localStorage.setItem('authData', authData);
+    localStorage.setItem('authData', JSON.stringify(authData));
     localStorage.setItem('isAuth', true);
 
-    await fetch('http://localhost:3000/login', {
+    authData.email = res.user.email;
+    const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: authData,
+      body: JSON.stringify(authData),
     });
+
+    /* insertしてincrementされたidを取得しlocalstorageへ保存 */
+    /* このidを使ってcartページを押した際にそのuserという特定ができる */
+    const result = await response.json();
+    const currentUserId = result.data.user_id;
+
+    const userData = JSON.parse(localStorage.getItem('authData'));
+    userData.userId = currentUserId;
+    localStorage.setItem('authData', JSON.stringify(userData));
 
     setIsLogin((prev) => !prev);
     navigate('/');
