@@ -1,8 +1,8 @@
-import { Figure } from '../figure/Figure';
+import { Figure } from '../../section/figure/Figure';
 import './Home.css';
-import { FormSection } from '../formSection/FormSection';
-import { BigPhoto } from '../bigPhotoSection/BigPhoto';
-import { TextPR } from '../textPR/TextPR';
+import { FormSection } from '../../section/formSection/FormSection';
+import { BigPhoto } from '../../section/bigPhotoSection/BigPhoto';
+import { TextPR } from '../../section/textPR/TextPR';
 
 /* 画像を右に一枚、その左に説明文を書きたい。 */
 export const Home = () => {
@@ -16,10 +16,7 @@ export const Home = () => {
         }
       />
       <TextPR />
-      <BigPhoto
-        BigPhotoURL={'https://placehold.jp/1920x960.png'}
-        BigPhotoAlt={'でか画像'}
-      />
+      <BigPhoto BigPhotoURL={'../../public/002.jpg'} BigPhotoAlt={'ハサミ'} />
       <FormSection
         titleArray={[
           'お名前',

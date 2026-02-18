@@ -10,7 +10,7 @@ exports.up = function (knex) {
     table.integer('count');
     table.integer('price');
     table.foreign('order_id').references('order_id').inTable('order');
-    table.foreign('product_id').references('product_id').inTable('products');
+    // table.foreign('product_id').references('product_id').inTable('products');
   });
 };
 

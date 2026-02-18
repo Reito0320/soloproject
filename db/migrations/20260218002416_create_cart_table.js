@@ -5,8 +5,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable('cart', (table) => {
     table.increments('cart_id').primary();
-    table.integer('customer_id');
-    table.foreign('customer_id').references('user_id').inTable('users');
+    table.integer('user_id');
+    table.foreign('user_id').references('user_id').inTable('users');
   });
 };
 

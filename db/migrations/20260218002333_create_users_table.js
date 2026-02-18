@@ -7,7 +7,6 @@ exports.up = function (knex) {
     table.increments('user_id').primary();
     table.string('name');
     table.string('email').unique();
-    table.foreign('user_id').references('customer_id').inTable('cart');
   });
 };
 

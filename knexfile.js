@@ -1,5 +1,5 @@
 // Update with your config settings.
-
+require('dotenv').config();
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -9,11 +9,11 @@ module.exports = {
     client: 'pg',
     /* DB接続情報 */
     connection: {
-      host: process.env.DB_HOST || 'localhost',
-      port: process.env.DB_PORT || 5432,
-      database: process.env.DB_NAME,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
+      host: process.env.EC_HOST || 'localhost',
+      port: process.env.EC_PORT || 5432,
+      database: process.env.EC_NAME,
+      user: process.env.EC_USER,
+      password: process.env.EC_PASSWORD,
     },
     migrations: {
       directory: './db/migrations',

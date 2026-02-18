@@ -1,1 +1,0 @@
-const createRepository = (table) => {};
