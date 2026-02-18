@@ -6,8 +6,6 @@ exports.up = function (knex) {
   return knex.schema.createTable('products', (table) => {
     table.increments('products_id').primary();
     table.string('name');
-    /* 商品の説明 */
-    table.string('description');
     table.integer('price');
     table.integer('stock');
   });

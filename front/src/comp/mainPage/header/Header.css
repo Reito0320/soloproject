@@ -30,3 +30,21 @@ button {
 hr {
   margin: 0px;
 }
+
+.goggle-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  margin-left: 10px;
+}
+
+.user-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+}

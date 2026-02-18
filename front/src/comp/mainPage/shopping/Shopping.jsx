@@ -7,11 +7,21 @@ export const Shopping = () => {
       <Link to={'/shopping/004'}>
         <Picture pictureSrc={'../../../../public/004.jpg'} />
       </Link>
-      <Picture pictureSrc={'../../../../public/004.jpg'} />
-      <Picture pictureSrc={'../../../../public/004.jpg'} />
-      <Picture pictureSrc={'../../../../public/004.jpg'} />
-      <Picture pictureSrc={'../../../../public/004.jpg'} />
-      <Picture pictureSrc={'../../../../public/004.jpg'} />
+      <Link to={'/shopping/005'}>
+        <Picture pictureSrc={'../../../../public/005.jpg'} />
+      </Link>
+      <Link to={'/shopping/008'}>
+        <Picture pictureSrc={'../../../../public/008.jpg'} />
+      </Link>
+      <Link to={'/shopping/009'}>
+        <Picture pictureSrc={'../../../../public/009.jpg'} />
+      </Link>
+      <Link to={'/shopping/002'}>
+        <Picture pictureSrc={'../../../../public/002.jpg'} />
+      </Link>
+      <Link to={'/shopping/003'}>
+        <Picture pictureSrc={'../../../../public/003.jpg'} />
+      </Link>
     </motion.div>
   );
 };

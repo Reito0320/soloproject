@@ -5,10 +5,10 @@
 exports.up = function (knex) {
   return knex.schema.createTable('order', (table) => {
     table.increments('order_id').primary();
-    table.integer('customer_id');
+    table.integer('user_id');
     table.timestamp('orderData');
     table.integer('total');
-    table.foreign('customer_id').references('user_id').inTable('users');
+    table.foreign('user_id').references('user_id').inTable('users');
   });
 };
 

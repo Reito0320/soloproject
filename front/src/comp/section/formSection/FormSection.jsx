@@ -27,6 +27,7 @@ export const FormSection = ({ titleArray }) => {
         {titleArray.map((ele, index) => {
           return (
             <motion.label
+              className="input-title"
               whileHover={{ scale: 1.05 }}
               variants={item}
               key={index}

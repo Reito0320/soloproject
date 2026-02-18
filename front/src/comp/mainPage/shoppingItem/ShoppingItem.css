@@ -1,0 +1,31 @@
+.shopping-number-four-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  margin-top: 50px;
+}
+
+.shopping-item-input {
+  width: 170px;
+  height: 45px;
+}
+
+.item-title {
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.item-userInput-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-image {
+  box-shadow: 10px 10px 15px 0px #777777;
+  border-radius: 10px;
+  height: 427px;
+  width: 640px;
+}

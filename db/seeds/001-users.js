@@ -6,10 +6,9 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex('users').del();
   await knex('users').insert([
-    { user_id: 1, name: '近藤昌幸', email: 'utautai@yahoo.com.jp' },
-    { user_id: 2, name: '田中正八', email: 'tekitou@yahoo.com.jp' },
+    { name: '近藤昌幸', email: 'utautai@yahoo.com.jp' },
+    { name: '田中正八', email: 'tekitou@yahoo.com.jp' },
     {
-      user_id: 3,
       name: 'マツコデラックス',
       email: 'getuyoukarayofukashi@yahoo.com.jp',
     },

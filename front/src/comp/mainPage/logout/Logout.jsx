@@ -1,13 +1,20 @@
+import { AnimationButton } from '../../atoms/button/AnimationButton';
 import { FormSection } from '../../section/formSection/FormSection';
 import './Logout.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Logout = () => {
+  const navigate = useNavigate();
+  const onClickEvent = () => {
+    localStorage.clear();
+    navigate('/');
+  };
   return (
     <>
       <div className="section">
         <div className="login-box">
           <h1>ログアウトページ</h1>
-          <div className="button-cont"></div>
+          <AnimationButton buttonValue={'Logout'} onClickEvent={onClickEvent} />
         </div>
       </div>
       <FormSection

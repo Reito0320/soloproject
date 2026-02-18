@@ -1,14 +1,29 @@
 import './Header.css';
 import { IoCart } from 'react-icons/io5';
-import { CiMenuBurger } from 'react-icons/ci';
+import { CiLogin } from 'react-icons/ci';
 import { CiLogout } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
+import { LuArchiveRestore } from 'react-icons/lu';
 
 export const Header = () => {
   return (
     <>
       <nav className="navigation">
-        <span>ここにuserのログイン情報を出したい</span>
+        <div>
+          {/* loadingするとuserDataがなくなるので、本来はcookieを使いたいが一旦localに保存 */}
+          {localStorage.getItem('isAuth') && (
+            <div className="user-info">
+              <img
+                className="goggle-picture"
+                src={JSON.parse(localStorage.getItem('authData')).photoURL}
+                alt="userPicture"
+              />
+              <span className="user-name">
+                {JSON.parse(localStorage.getItem('authData')).userName}
+              </span>
+            </div>
+          )}
+        </div>
         <div className="navigation-leftBlock">
           <Link to={'/'}>
             <img
@@ -24,17 +39,28 @@ export const Header = () => {
         <div className="navigation-rightBlock">
           <Link to={'/shopping'}>
             <button className="navigation-cartButton">
+              <LuArchiveRestore size={50} />
+            </button>
+          </Link>
+          <Link to={'/cart'}>
+            <button className="navigation-button">
               <IoCart size={50} />
             </button>
           </Link>
-          <Link to={'/logout'}>
-            <button className="navigation-button">
-              <CiLogout size={50} />;
-            </button>
-          </Link>
-          <button className="navigation-button">
-            <CiMenuBurger size={50} />
-          </button>
+          {localStorage.getItem('isAuth') && (
+            <Link to={'/logout'}>
+              <button className="navigation-button">
+                <CiLogout size={50} />;
+              </button>
+            </Link>
+          )}
+          {!localStorage.getItem('isAuth') && (
+            <Link to={'/login'}>
+              <button className="navigation-button">
+                <CiLogin size={50} />
+              </button>
+            </Link>
+          )}
         </div>
       </nav>
       <hr />

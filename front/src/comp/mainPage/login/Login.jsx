@@ -5,13 +5,28 @@ import { useNavigate } from 'react-router-dom';
 import { AnimationButton } from '../../atoms/button/AnimationButton';
 import { FormSection } from '../../section/formSection/FormSection';
 
-export const Login = ({ userData, setUserData }) => {
+export const Login = ({ setIsLogin }) => {
   const navigate = useNavigate();
+
   const userGoogleLogin = async () => {
     const res = await signInWithPopup(auth, provider);
+    const authData = JSON.stringify({
+      userName: res.user.displayName,
+      email: res.user.email,
+      photoURL: res.user.photoURL,
+    });
+    /* 本当はクッキーを使いたい */
+    localStorage.setItem('authData', authData);
     localStorage.setItem('isAuth', true);
-    setUserData(res);
-    navigate('/home');
+
+    await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: authData,
+    });
+
+    setIsLogin((prev) => !prev);
+    navigate('/');
   };
   return (
     <>

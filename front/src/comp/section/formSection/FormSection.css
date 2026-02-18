@@ -29,7 +29,7 @@ textarea {
   margin-left: 10px;
 }
 
-label {
+.input-title {
   box-shadow: 10px 10px 15px -5px #777777;
   border-radius: 15px;
   padding: 10px 100px;
