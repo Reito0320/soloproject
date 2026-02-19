@@ -49,7 +49,6 @@ const buildServer = () => {
         .returning('*');
 
       /* cart_itemsへのinsert */
-      /* product_idがまだ未定だったがこの処理の前にproduct_idの作成が可能なことに気づいた。 */
       const insertCartItemsResult = await knex('cart_items')
         .insert({
           cart_id: insertUsersResult[0].cart_id,
@@ -70,7 +69,6 @@ const buildServer = () => {
     const currentUserId = await knex('users')
       .insert({ name: body.userName, email: body.email })
       .returning('*');
-    console.log(currentUserId);
     return res.send({ data: currentUserId[0] });
   });
 
@@ -78,6 +76,32 @@ const buildServer = () => {
   app.get('/cart', async (req, res) => {
     /* これはtableをくっつけてdataを抽出しないといけないやつかも。。 */
     // const cartData = await knex("users").where("");
+  });
+
+  /* 全データの取得 */
+  app.get('/api/products', async (req, res) => {
+    const allData = await knex('products').select('*');
+    return res.json(allData);
+  });
+
+  /* productsのデータをparamsで選んで取得 */
+  app.get('/api/products/:name', async (req, res) => {
+    const params = req.params.name;
+    if (Number(params)) {
+      return res.status(406).send({
+        type: 'error',
+        message: '該当の商品がありません',
+      });
+    } else {
+      const targetItem = await knex('products').where('name', params);
+      if (JSON.stringify(targetItem) === JSON.stringify([])) {
+        return res.status(406).send({
+          type: 'error',
+          message: '該当の商品がありません',
+        });
+      }
+      return res.send(targetItem[0]);
+    }
   });
 
   return app;

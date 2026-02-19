@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Home } from './comp/mainPage/home/Home';
@@ -10,18 +10,29 @@ import { Logout } from './comp/mainPage/logout/Logout';
 import { Cart } from './comp/mainPage/cart/Cart';
 
 function App() {
-  // const [isLoading, setLoading] = useState(false);
-  const [userData, setUserData] = useState([]);
   /* 待機画面のアニメーションのためのstate */
   const [isLoading, setIsLoading] = useState(false);
   /* ログインしているしていないかのstate */
   /* ログイン処理をするのはlogin compと logout compなのでそこに送る */
   /* uiの所在はheaderなので、stateはheaderへ */
   const [isLogin, setIsLogin] = useState(false);
+  const [productsData, setProductsData] = useState([]);
 
-  useState(() => {
+  /* 目標 */
+  /* 待機画面のアニメーション実装 */
+  /* お問い合わせsectionの修正 */
+  /* DBのデータを使ってcart compのUIを作成する */
+
+  useEffect(() => {
+    const gatInitialData = async () => {
+      const response = await fetch('http://localhost:3000/api/products');
+      const result = await response.json();
+      setProductsData(result);
+    };
+    gatInitialData();
+
     setTimeout(() => {
-      // setLoading(true);
+      setIsLoading(true);
     }, 3000);
   }, []);
 
@@ -31,66 +42,23 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/shopping" element={<Shopping />}></Route>
-        <Route
-          path="/shopping/004"
-          element={
-            <ShoppingItem
-              price={21000}
-              itemTitle={'Number004'}
-              pictureSrc={'../../../../public/004.jpg'}
-            />
-          }
-        ></Route>
-        <Route
-          path="/shopping/005"
-          element={
-            <ShoppingItem
-              price={35000}
-              itemTitle={'Number005'}
-              pictureSrc={'../../../../public/005.jpg'}
-            />
-          }
-        ></Route>
-        <Route
-          path="/shopping/008"
-          element={
-            <ShoppingItem
-              price={5000}
-              itemTitle={'Number008'}
-              pictureSrc={'../../../../public/008.jpg'}
-            />
-          }
-        ></Route>
-        <Route
-          path="/shopping/009"
-          element={
-            <ShoppingItem
-              price={2000}
-              itemTitle={'Number009 '}
-              pictureSrc={'../../../../public/009.jpg'}
-            />
-          }
-        ></Route>
-        <Route
-          path="/shopping/002"
-          element={
-            <ShoppingItem
-              price={30000}
-              itemTitle={'Number002 '}
-              pictureSrc={'../../../../public/002.jpg'}
-            />
-          }
-        ></Route>
-        <Route
-          path="/shopping/003"
-          element={
-            <ShoppingItem
-              price={12000}
-              itemTitle={'Number003 '}
-              pictureSrc={'../../../../public/003.jpg'}
-            />
-          }
-        ></Route>
+        {/* こここだわりポイント */}
+        {productsData.map((obj, index) => {
+          return (
+            <Route
+              key={index}
+              path={`/shopping/${obj.path}`}
+              element={
+                <ShoppingItem
+                  price={obj.price}
+                  itemTitle={obj.name}
+                  pictureSrc={`../../../../public/${obj.path}.jpg`}
+                  stock={obj.stock}
+                />
+              }
+            ></Route>
+          );
+        })}
 
         <Route
           path="/login"

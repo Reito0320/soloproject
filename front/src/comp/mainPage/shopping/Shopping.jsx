@@ -1,9 +1,14 @@
+import './Shopping.css';
 import { motion } from 'motion/react';
 import { Picture } from '../../atoms/picture/picture';
 import { Link } from 'react-router-dom';
 export const Shopping = () => {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <motion.div
+      className="shopping-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <Link to={'/shopping/004'}>
         <Picture pictureSrc={'../../../../public/004.jpg'} />
       </Link>

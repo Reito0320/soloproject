@@ -7,19 +7,40 @@ exports.seed = async function (knex) {
   await knex('products').del();
   await knex('products').insert([
     {
-      name: 'いいハサミ',
-      price: 4000,
-      stock: 4,
+      name: 'number004',
+      price: 21000,
+      stock: 10,
+      path: '004',
     },
     {
-      name: 'そこそこいいハサミ',
+      name: 'number005',
+      price: 35000,
+      stock: 10,
+      path: '005',
+    },
+    {
+      name: 'number008',
       price: 5000,
-      stock: 5,
+      stock: 10,
+      path: '008',
     },
     {
-      name: 'まあまあいいハサミ',
-      price: 10000,
-      stock: 6,
+      name: 'number009',
+      price: 2000,
+      stock: 10,
+      path: '009',
+    },
+    {
+      name: 'number002',
+      price: 30000,
+      stock: 10,
+      path: '002',
+    },
+    {
+      name: 'number003',
+      price: 12000,
+      stock: 10,
+      path: '003',
     },
   ]);
 };

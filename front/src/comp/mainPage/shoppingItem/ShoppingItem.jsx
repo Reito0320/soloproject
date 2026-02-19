@@ -4,8 +4,9 @@ import { Input } from '../../atoms/input/Input';
 import './ShoppingItem.css';
 import { easeInOut, motion } from 'motion/react';
 
-export const ShoppingItem = ({ price, itemTitle, pictureSrc }) => {
+export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
   const [itemCount, setItemCount] = useState(0);
+  const [isItemTakeInCart, setIsItemTakeInCart] = useState(false);
 
   const getUserTakeInCartData = async () => {
     if (!itemCount) return;
@@ -20,7 +21,11 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc }) => {
       headers: { 'Content-Type': 'application/json' },
       body: result,
     });
+
+    setIsItemTakeInCart(true);
+    document.querySelector('.shopping-item-input').value = '';
   };
+
   return (
     <section className="shopping-number-four-section">
       <motion.div
@@ -29,13 +34,26 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc }) => {
         transition={{ direction: 100, delay: 0.3, ease: easeInOut }}
       >
         <h2 className="item-title">{itemTitle}</h2>
+        {isItemTakeInCart && (
+          <motion.span
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            カートに追加しました。
+          </motion.span>
+        )}
         <p>価格: {price}</p>
+        <p>在庫数: {stock}</p>
         <div className="item-userInput-container">
           <Input
             className={'shopping-item-input'}
             inputTitle={'数量'}
             inputType={'number'}
-            onChangeFunc={(e) => setItemCount(Number(e.target.value))}
+            onChangeFunc={(e) => {
+              setItemCount(Number(e.target.value));
+              if (isItemTakeInCart) setIsItemTakeInCart(false);
+            }}
           />
           <AnimationButton
             onClickEvent={getUserTakeInCartData}

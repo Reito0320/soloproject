@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.string('name');
     table.integer('price');
     table.integer('stock');
+    table.string('path');
   });
 };
 
