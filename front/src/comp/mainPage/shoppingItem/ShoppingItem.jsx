@@ -8,15 +8,19 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
   const [itemCount, setItemCount] = useState(0);
   const [isItemTakeInCart, setIsItemTakeInCart] = useState(false);
 
+  /* cartに商品を登録する */
   const getUserTakeInCartData = async () => {
     if (!itemCount) return;
+
+    const userId = JSON.parse(localStorage.getItem('authData')).userId;
 
     const result = JSON.stringify({
       itemName: itemTitle,
       itemPrice: price,
       itemCount: itemCount,
+      userId: userId,
     });
-    await fetch('http://localhost:3000/shopping/004', {
+    await fetch('http://localhost:3000/api/shopping/004', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: result,

@@ -1,8 +1,9 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import { motion } from 'motion/react';
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -23,7 +24,9 @@ export default defineConfig([
       },
     },
     rules: {
+      /* motionのlinter errorが気になったため。 */
+      'react/jsx-no-undef': ['error', { allowGlobals: true }],
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
-])
+]);

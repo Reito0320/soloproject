@@ -1,6 +1,7 @@
 .section {
   background-color: rgb(225, 250, 255);
-  padding: 200px;
+  /* padding: 200px; */
+  padding-bottom: 400px;
 }
 .login-box {
   background-color: #ffffff;

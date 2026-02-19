@@ -18,7 +18,7 @@ export const Logout = ({ setIsLogin }) => {
           <AnimationButton buttonValue={'Logout'} onClickEvent={onClickEvent} />
         </div>
       </div>
-      <FormSection
+      {/* <FormSection
         titleArray={[
           'お名前',
           'フリガナ',
@@ -27,7 +27,7 @@ export const Logout = ({ setIsLogin }) => {
           '電話番号',
           'メールアドレス',
         ]}
-      />
+      /> */}
     </>
   );
 };

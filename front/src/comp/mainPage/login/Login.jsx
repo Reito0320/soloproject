@@ -21,7 +21,7 @@ export const Login = ({ setIsLogin }) => {
     localStorage.setItem('isAuth', true);
 
     authData.email = res.user.email;
-    const response = await fetch('http://localhost:3000/login', {
+    const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(authData),
@@ -35,6 +35,8 @@ export const Login = ({ setIsLogin }) => {
     const userData = JSON.parse(localStorage.getItem('authData'));
     userData.userId = currentUserId;
     localStorage.setItem('authData', JSON.stringify(userData));
+
+    /* ここでcart */
 
     setIsLogin((prev) => !prev);
     navigate('/');

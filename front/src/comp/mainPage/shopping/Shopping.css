@@ -1,3 +1,19 @@
 .shopping-container {
-  display: grid;
+  gap: 30px;
+}
+
+.link-section {
+  text-decoration: none;
+  color: black;
+}
+
+.picture-comp {
+  width: 500px;
+}
+.picture-comp:hover {
+  cursor: pointer;
+}
+
+.store-title {
+  text-align: center;
 }

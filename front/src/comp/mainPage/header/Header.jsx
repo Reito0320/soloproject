@@ -44,16 +44,20 @@ export const Header = () => {
           </Link>
         </div>
         <div className="navigation-rightBlock">
-          <Link to={'/shopping'}>
-            <button className="navigation-cartButton">
-              <LuArchiveRestore size={50} />
-            </button>
-          </Link>
-          <Link to={'/cart'}>
-            <button className="navigation-button">
-              <IoCart size={50} />
-            </button>
-          </Link>
+          {localStorage.getItem('isAuth') && (
+            <Link to={'/shopping'}>
+              <button className="navigation-cartButton">
+                <LuArchiveRestore size={50} />
+              </button>
+            </Link>
+          )}
+          {localStorage.getItem('isAuth') && (
+            <Link to={'/cart'}>
+              <button className="navigation-button">
+                <IoCart size={50} />
+              </button>
+            </Link>
+          )}
           {localStorage.getItem('isAuth') && (
             <Link to={'/logout'}>
               <button className="navigation-button">

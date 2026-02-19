@@ -1,0 +1,31 @@
+.cart-page-title {
+  text-align: center;
+}
+.cart-data-column {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  gap: 10px;
+  padding-right: 50px;
+  margin: 50px;
+  box-shadow: 10px 10px 15px -5px #777777;
+  border-radius: 10px;
+}
+
+.cart-data-column p {
+  font-weight: bold;
+  color: white;
+}
+
+.cart-data-column div {
+  background-color: #777777;
+  padding: 50px;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}

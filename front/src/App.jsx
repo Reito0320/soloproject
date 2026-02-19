@@ -41,7 +41,10 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/shopping" element={<Shopping />}></Route>
+        <Route
+          path="/shopping"
+          element={<Shopping productsData={productsData} />}
+        ></Route>
         {/* こここだわりポイント */}
         {productsData.map((obj, index) => {
           return (
