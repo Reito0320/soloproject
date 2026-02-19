@@ -3,7 +3,7 @@ import { db, auth, provider } from '../../../utill/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AnimationButton } from '../../atoms/button/AnimationButton';
-import { FormSection } from '../../section/formSection/FormSection';
+import { FooterSection } from '../../section/footerSection/FooterSection';
 
 /* loginデータのinsertとlocalstorageへの保存と現在ログイン中のuserのidを取得 */
 /* 三つも仕事をしているので役割を分けたい */
@@ -63,16 +63,7 @@ export const Login = ({ setIsLogin }) => {
           </div>
         </div>
       </div>
-      <FormSection
-        titleArray={[
-          'お名前',
-          'フリガナ',
-          '郵便番号',
-          '住所',
-          '電話番号',
-          'メールアドレス',
-        ]}
-      />
+      <FooterSection />
     </>
   );
 };

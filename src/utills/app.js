@@ -70,8 +70,11 @@ const buildServer = () => {
 
   /* cartPageに移行時データの取得をして、そのデータを元にuiを作成 */
   app.get('/api/cart', async (req, res) => {
-    /* currentUserIdの取得 */
     const currentUserId = Number(req.query.userId);
+    if (!currentUserId) return res.end();
+    if (Number(req.params.userId)) return res.end();
+
+    /* currentUserIdの取得 */
     /* それを元にcartの特定 */
     const cartResponse = await knex('cart').where('user_id', currentUserId);
     const targetCartId = cartResponse[0].cart_id;
@@ -88,14 +91,30 @@ const buildServer = () => {
         'cart.cart_id',
         'cart.user_id',
         'cart_items.count',
+        'cart_items.cart_items_id',
         'products.name',
         'products.price',
         'products.path',
         'products.stock',
       )
       .where('cart.user_id', currentUserId);
-    console.log('*******', joinData);
     return res.send(joinData);
+  });
+
+  /* 指定した現在login中のuserの全てのcartを削除 */
+  app.delete('/api/cart/:userId', async (req, res) => {
+    const userId = req.params.userId;
+
+    // console.log(targetId);
+    /* 全削除の場合 */
+    if (!req.body) {
+      await knex('cart_items').where('cart_id', userId).delete();
+      return res.end();
+    } else {
+      const targetId = req.body.cartId;
+      await knex('cart_items').where('cart_items_id', targetId).delete();
+      return res.end();
+    }
   });
 
   /* 全データの取得 */

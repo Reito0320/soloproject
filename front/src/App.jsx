@@ -8,6 +8,7 @@ import { ShoppingItem } from './comp/mainPage/shoppingItem/ShoppingItem';
 import { Login } from './comp/mainPage/login/Login';
 import { Logout } from './comp/mainPage/logout/Logout';
 import { Cart } from './comp/mainPage/cart/Cart';
+import { CheckOut } from './comp/mainPage/checkout/CheckOut';
 
 function App() {
   /* 待機画面のアニメーションのためのstate */
@@ -72,6 +73,7 @@ function App() {
           element={<Logout setIsLogin={setIsLogin} />}
         ></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/checkOut" element={<CheckOut />}></Route>
       </Routes>
     </>
   );

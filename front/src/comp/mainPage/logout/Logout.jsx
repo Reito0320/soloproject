@@ -1,5 +1,5 @@
 import { AnimationButton } from '../../atoms/button/AnimationButton';
-import { FormSection } from '../../section/formSection/FormSection';
+import { FooterSection } from '../../section/footerSection/FooterSection';
 import './Logout.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,22 +12,19 @@ export const Logout = ({ setIsLogin }) => {
   };
   return (
     <>
-      <div className="section">
+      <div className="logout-section">
         <div className="login-box">
-          <h1>ログアウトページ</h1>
-          <AnimationButton buttonValue={'Logout'} onClickEvent={onClickEvent} />
+          <h1 className="logout-title">ログアウトページ</h1>
+          <div className="logout-button-container">
+            <AnimationButton
+              buttonValue={'Logout'}
+              onClickEvent={onClickEvent}
+            />
+          </div>
         </div>
       </div>
-      {/* <FormSection
-        titleArray={[
-          'お名前',
-          'フリガナ',
-          '郵便番号',
-          '住所',
-          '電話番号',
-          'メールアドレス',
-        ]}
-      /> */}
+      <hr />
+      <FooterSection />
     </>
   );
 };

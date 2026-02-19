@@ -1,6 +1,6 @@
-.section {
-  background-color: rgb(225, 250, 255);
-  /* padding: 200px; */
+.logout-section {
+  /* background-color: rgb(225, 250, 255); */
+  padding: 200px;
   padding-bottom: 400px;
 }
 .login-box {
@@ -9,13 +9,11 @@
   border-radius: 10px;
   box-shadow: 10px 10px 15px -5px #777777;
 }
-h1 {
+.logout-title {
   font-size: 50px;
 }
-.button-cont {
+
+.logout-button-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
-  gap: 25px;
+  justify-content: end;
 }

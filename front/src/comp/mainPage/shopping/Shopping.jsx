@@ -1,7 +1,8 @@
 import './Shopping.css';
-import { motion } from 'motion/react';
+import { motion, easeIn } from 'motion/react';
 import { Picture } from '../../atoms/picture/picture';
 import { Link } from 'react-router-dom';
+import { FooterSection } from '../../section/footerSection/FooterSection';
 
 export const Shopping = ({ productsData }) => {
   return (
@@ -11,9 +12,9 @@ export const Shopping = ({ productsData }) => {
         return (
           <div key={index}>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: easeIn }}
               className="cart-data-column"
             >
               <Link className="link-section" to={`/shopping/${obj.path}`}>
@@ -35,6 +36,7 @@ export const Shopping = ({ productsData }) => {
           </div>
         );
       })}
+      <FooterSection />
     </>
   );
 };
