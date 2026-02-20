@@ -6,19 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import { FooterSection } from '../../section/footerSection/FooterSection';
 import { Link } from 'react-router-dom';
 
-export const Cart = () => {
-  const [cartData, setCartData] = useState([]);
-  const [deleteFlag, setDeleteFlag] = useState(false);
-
+export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
   const navigate = useNavigate();
 
   const deleteAll = async () => {
     const currentUserId = JSON.parse(localStorage.getItem('authData')).userId;
-    const foo = await fetch('http://localhost:3000/api/cart/' + currentUserId, {
+    await fetch('http://localhost:3000/api/cart/' + currentUserId, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log(foo);
     navigate('/shopping');
   };
 

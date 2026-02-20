@@ -18,6 +18,9 @@ function App() {
   /* uiの所在はheaderなので、stateはheaderへ */
   const [isLogin, setIsLogin] = useState(false);
   const [productsData, setProductsData] = useState([]);
+  const [cartData, setCartData] = useState([]);
+  const [deleteFlag, setDeleteFlag] = useState(false);
+  const [sumPrice, setSumPrice] = useState(0);
 
   /* 目標 */
   /* 待機画面のアニメーション実装 */
@@ -72,8 +75,27 @@ function App() {
           path="/logout"
           element={<Logout setIsLogin={setIsLogin} />}
         ></Route>
-        <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/checkOut" element={<CheckOut />}></Route>
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              deleteFlag={deleteFlag}
+              setDeleteFlag={setDeleteFlag}
+              cartData={cartData}
+              setCartData={setCartData}
+            />
+          }
+        ></Route>
+        <Route
+          path="/checkOut"
+          element={
+            <CheckOut
+              sumPrice={sumPrice}
+              setSumPrice={setSumPrice}
+              cartData={cartData}
+            />
+          }
+        ></Route>
       </Routes>
     </>
   );
