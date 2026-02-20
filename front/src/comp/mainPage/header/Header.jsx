@@ -38,7 +38,7 @@ export const Header = () => {
               width={200}
               height={150}
               className="navigation-leftBlock-logo"
-              src="../../../public/scissors_logo.png"
+              src="/scissors_logo.png"
               alt="scissors_logo"
             />
           </Link>

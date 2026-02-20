@@ -18,7 +18,7 @@ export const Shopping = ({ productsData }) => {
               className="cart-data-column"
             >
               <Link className="link-section" to={`/shopping/${obj.path}`}>
-                <Picture pictureSrc={`../../../../public/${obj.path}.jpg`} />
+                <Picture pictureSrc={`/${obj.path}.jpg`} />
               </Link>
               <div className="item-container">
                 <p>item name:</p>

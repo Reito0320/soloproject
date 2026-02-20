@@ -10,14 +10,14 @@ export const Home = () => {
     <>
       <section className="main-container">
         <Figure
-          pictureURL={'../../public/001.jpg'}
+          pictureURL={'/001.jpg'}
           captionTitle={'プロの切れ味'}
           captionText={
             'test test test test test test test test test test test test test test test test test test test test'
           }
         />
         <TextPR />
-        <BigPhoto BigPhotoURL={'../../public/002.jpg'} BigPhotoAlt={'ハサミ'} />
+        <BigPhoto BigPhotoURL={'/002.jpg'} BigPhotoAlt={'ハサミ'} />
         <FooterSection />
       </section>
     </>

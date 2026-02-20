@@ -59,7 +59,7 @@ function App() {
                 <ShoppingItem
                   price={obj.price}
                   itemTitle={obj.name}
-                  pictureSrc={`../../../../public/${obj.path}.jpg`}
+                  pictureSrc={`/${obj.path}.jpg`}
                   stock={obj.stock}
                 />
               }

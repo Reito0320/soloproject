@@ -56,7 +56,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
                 <img
                   width={640}
                   height={427}
-                  src={`../../../../public/${obj.path}.jpg`}
+                  src={`/${obj.path}.jpg`}
                   alt="画像"
                 />
                 <div className="item-container">
