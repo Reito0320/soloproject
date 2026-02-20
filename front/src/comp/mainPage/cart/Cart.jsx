@@ -11,7 +11,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
 
   const deleteAll = async () => {
     const currentUserId = JSON.parse(localStorage.getItem('authData')).userId;
-    await fetch('http://localhost:3000/api/cart/' + currentUserId, {
+    await fetch('/api/cart/' + currentUserId, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });

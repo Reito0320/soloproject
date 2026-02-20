@@ -1,20 +1,16 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 const knex = require('./knex');
+const path = require('path');
 
 // const { initUsers } = require('../users/index');
 
 const buildServer = () => {
   app.use(express.json());
-  /* Reactとexpressのサーバーオリジンの差異からerrorを出していたので、このコードで改善 */
-  app.use(
-    cors({
-      origin: 'http://localhost:5173',
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
-    }),
-  );
+
+  /* このコードでbuild時に静的ファイルを参照できる
+  build時の静的ファイルにはfrontの情報が詰まっている */
+  app.use(express.static(path.join(__dirname, '../../public')));
 
   /* cartに入れた商品と誰がどのcartを使っているかの情報吸い出し完了 */
   app.post('/api/shopping/:id', async (req, res) => {

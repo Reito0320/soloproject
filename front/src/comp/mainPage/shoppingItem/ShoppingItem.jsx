@@ -21,7 +21,7 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
       itemCount: itemCount,
       userId: userId,
     });
-    await fetch('http://localhost:3000/api/shopping/004', {
+    await fetch('/api/shopping/004', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: result,

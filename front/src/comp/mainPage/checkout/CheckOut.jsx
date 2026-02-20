@@ -6,7 +6,17 @@ export const CheckOut = ({ sumPrice, setSumPrice, cartData }) => {
   その次にlocalだけど、その後のDBの在庫管理とかcartの中の更新とかいろいろあるから前者での実装が良いと思う。
    */
   useEffect(() => {
-    setSumPrice(cartData.reduce((acc, cur) => acc + cur.price, 0));
+    const getCartData = async () => {
+      try {
+        const response = await fetch('/api/checkout');
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getCartData();
+    // setSumPrice(cartData.reduce((acc, cur) => acc + cur.price, 0));
   }, []);
   return (
     <>
