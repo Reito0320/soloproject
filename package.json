@@ -12,7 +12,7 @@
     "seed:make": "npx knex seed:make",
     "seed:latest": "npx knex seed:run",
     "frontBuild": " cd front && npm install && npm run build && rm -rf ../public && cp -r dist ../public",
-    "build": "npm install && npm run migrate:latest && npm run seed:latest && npm run frontBuild",
+    "build": "npm install && npx knex migrate:rollback --all && npm run migrate:latest && npm run seed:latest && npm run frontBuild",
     "start": "node ./src/utills/index.js"
   },
   "keywords": [],
