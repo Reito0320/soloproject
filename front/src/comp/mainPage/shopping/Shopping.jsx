@@ -1,6 +1,6 @@
 import './Shopping.css';
 import { motion, easeIn } from 'motion/react';
-import { Picture } from '../../atoms/picture/picture';
+import { Picture } from '../../atoms/picture/Picture';
 import { Link } from 'react-router-dom';
 import { FooterSection } from '../../section/footerSection/FooterSection';
 
