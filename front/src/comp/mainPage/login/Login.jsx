@@ -1,5 +1,5 @@
 import './Login.css';
-import { db, auth, provider } from '../../../utill/firebase';
+import { db, auth, provider } from '../../../utils/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AnimationButton } from '../../atoms/button/AnimationButton';
