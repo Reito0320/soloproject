@@ -10,7 +10,7 @@ const buildServer = () => {
 
   /* このコードでbuild時に静的ファイルを参照できる
   build時の静的ファイルにはfrontの情報が詰まっている */
-  app.use(express.static(path.join(__dirname, '../../public')));
+  app.use(express.static('../public'));
 
   /* cartに入れた商品と誰がどのcartを使っているかの情報吸い出し完了 */
   app.post('/api/shopping/:id', async (req, res) => {
