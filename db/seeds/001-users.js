@@ -4,6 +4,7 @@
  */
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
+  console.log('***SEEDLOG', process.env.NODE_ENV);
   await knex('cart_items').del();
   await knex('cart').del();
   await knex('order_items').del();
