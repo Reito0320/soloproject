@@ -11,8 +11,8 @@
     "migrate:rollback": "npx knex migrate:rollback --all && knex migrate:latest && knex seed:run",
     "seed:make": "npx knex seed:make",
     "seed:latest": "npx knex seed:run",
-    "frontBuild": "npm install && npm run build && rm -rf ../public && cp -r dist ../public",
-    "build": "npm install && npm run migrate:latest && seed:latest && cd front && npm run frontBuild",
+    "frontBuild": " cd front && npm install && npm run build && rm -rf ../public && cp -r dist ../public",
+    "build": "npm install && npm run migrate:latest && npm run seed:latest && npm run frontBuild",
     "start": "node ./src/utills/index.js"
   },
   "keywords": [],
