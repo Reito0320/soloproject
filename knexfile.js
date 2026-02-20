@@ -1,6 +1,6 @@
 // Update with your config settings.
 require('dotenv').config(__dirname + '.env');
-console.log(process.env.PORT);
+
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
