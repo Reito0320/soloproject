@@ -20,7 +20,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
 
   const targetDelete = async (cartItemsId) => {
     const currentUserId = JSON.parse(localStorage.getItem('authData')).userId;
-    await fetch(`http://localhost:3000/api/cart/${currentUserId}`, {
+    await fetch(`/api/cart/${currentUserId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cartId: cartItemsId }),
@@ -33,9 +33,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
   useEffect(() => {
     const getCartData = async () => {
       const currentUserId = JSON.parse(localStorage.getItem('authData')).userId;
-      const response = await fetch(
-        'http://localhost:3000/api/cart?userId=' + currentUserId,
-      );
+      const response = await fetch('/api/cart?userId=' + currentUserId);
       const data = await response.json();
       setCartData(data);
     };
