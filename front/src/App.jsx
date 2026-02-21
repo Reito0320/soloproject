@@ -9,6 +9,7 @@ import { Login } from './comp/mainPage/login/Login';
 import { Logout } from './comp/mainPage/logout/Logout';
 import { Cart } from './comp/mainPage/cart/Cart';
 import { CheckOut } from './comp/mainPage/checkout/CheckOut';
+import { Credit } from './comp/mainPage/credit/Credit';
 
 function App() {
   /* 待機画面のアニメーションのためのstate */
@@ -20,7 +21,6 @@ function App() {
   const [productsData, setProductsData] = useState([]);
   const [cartData, setCartData] = useState([]);
   const [deleteFlag, setDeleteFlag] = useState(false);
-  const [sumPrice, setSumPrice] = useState(0);
 
   /* 目標 */
   /* 待機画面のアニメーション実装 */
@@ -65,6 +65,7 @@ function App() {
                   itemTitle={obj.name}
                   pictureSrc={`/${obj.path}.jpg`}
                   stock={obj.stock}
+                  products_id={obj.products_id}
                 />
               }
             ></Route>
@@ -92,14 +93,9 @@ function App() {
         ></Route>
         <Route
           path="/checkOut"
-          element={
-            <CheckOut
-              sumPrice={sumPrice}
-              setSumPrice={setSumPrice}
-              cartData={cartData}
-            />
-          }
+          element={<CheckOut cartData={cartData} setCartData={setCartData} />}
         ></Route>
+        <Route path="/checkOut/credit" element={<Credit />}></Route>
       </Routes>
     </>
   );

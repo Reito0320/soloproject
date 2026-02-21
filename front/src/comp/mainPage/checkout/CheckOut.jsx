@@ -1,18 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { motion } from 'motion/react';
+import './CheckOut.css';
+import { FooterSection } from '../../section/footerSection/FooterSection';
+import { CheckoutInput } from '../../section/checkoutInput/CheckoutInput';
 
-export const CheckOut = ({ sumPrice, setSumPrice, cartData }) => {
-  /* 
-  これでいけなくもないが、更新すると消えるので、DB経由でのマウント時のレンダリングが1番いいかも。
-  その次にlocalだけど、その後のDBの在庫管理とかcartの中の更新とかいろいろあるから前者での実装が良いと思う。
-   */
+export const CheckOut = ({ cartData, setCartData }) => {
+  /* DB経由でcartの状態を更新し、uiの取得 */
   useEffect(() => {
     const getCartData = async () => {
       try {
-        const response = await fetch('/api/checkout');
+        const userId = JSON.parse(localStorage.getItem('authData')).userId;
+        const response = await fetch('/api/checkout/' + userId);
         const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.log(error.message);
+        const uniq = data.reduce((result, obj) => {
+          result[obj.name] = obj;
+          return result;
+        }, {});
+        const uniqData = Object.values(uniq);
+        setCartData(uniqData);
+      } catch {
+        throw new Error('cart情報の取得に失敗しています。');
       }
     };
     getCartData();
@@ -20,8 +27,42 @@ export const CheckOut = ({ sumPrice, setSumPrice, cartData }) => {
   }, []);
   return (
     <>
-      <div>CheckOut</div>;
-      <button onClick={() => console.log(sumPrice)}>test</button>
+      <h1 style={{ textAlign: 'center' }}>check out page</h1>
+      <div className="checkout-cart-section">
+        {cartData.map((obj, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="checkout-item-card-container"
+            key={index}
+          >
+            <img
+              width={200}
+              height={200}
+              src={`/${obj.path}.jpg`}
+              alt={obj.name}
+            />
+            <p className="checkout-item">name: {obj.name}</p>
+            <p className="checkout-item">price: {obj.price.toLocaleString()}</p>
+            <p className="checkout-item">count: {obj.count}</p>
+            <p className="checkout-item">
+              sum: {(obj.price * obj.count).toLocaleString()}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+
+      <h2 style={{ textAlign: 'center' }}>
+        sum price:{' '}
+        {(
+          cartData.reduce((acc, cur) => acc + cur.price, 0) *
+          cartData.reduce((acc, cur) => acc + cur.count, 0)
+        ).toLocaleString()}
+      </h2>
+
+      <CheckoutInput />
+      <FooterSection />
     </>
   );
 };

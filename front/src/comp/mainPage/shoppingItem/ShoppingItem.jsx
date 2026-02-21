@@ -6,12 +6,19 @@ import { easeInOut, motion } from 'motion/react';
 import { FooterSection } from '../../section/footerSection/FooterSection';
 import { CiKeyboard } from 'react-icons/ci';
 
-export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
+export const ShoppingItem = ({
+  price,
+  itemTitle,
+  pictureSrc,
+  stock,
+  products_id,
+}) => {
   const [itemCount, setItemCount] = useState(0);
   const [isItemTakeInCart, setIsItemTakeInCart] = useState(false);
 
   /* cartに商品を登録する */
   const getUserTakeInCartData = async () => {
+    /* inputの入力がなかった場合の処理 */
     if (!itemCount) return;
 
     const userId = JSON.parse(localStorage.getItem('authData')).userId;
@@ -20,8 +27,10 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
       itemName: itemTitle,
       itemPrice: price,
       itemCount: itemCount,
+      products_id,
       userId: userId,
     });
+
     await fetch('/api/shopping/004', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -49,7 +58,7 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
               カートに追加しました。
             </motion.span>
           )}
-          <p>価格: {price}</p>
+          <p>価格: {Number(price).toLocaleString()}</p>
           <p>在庫数: {stock}</p>
           <div className="item-userInput-container">
             <Input

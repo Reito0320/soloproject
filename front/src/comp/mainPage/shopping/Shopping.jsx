@@ -26,7 +26,7 @@ export const Shopping = ({ productsData }) => {
               </div>
               <div>
                 <p>price</p>
-                <p>{obj.price}</p>
+                <p>{Number(obj.price).toLocaleString()}</p>
               </div>
               <div>
                 <p>stock</p>

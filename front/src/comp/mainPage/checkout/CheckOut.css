@@ -1,0 +1,18 @@
+.checkout-cart-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  gap: 10px;
+}
+
+.checkout-item-card-container {
+  text-align: center;
+  border: solid;
+  box-shadow: 10px 10px 15px -5px #777777;
+  border-radius: 10px;
+}
+
+.checkout-item-title {
+  font-weight: bold;
+}

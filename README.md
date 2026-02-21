@@ -31,22 +31,24 @@
 ## productのDataを取得
 
 ```javascript
-app.get('/api/products', async (req, res) => {
-  const allData = await knex('products').select('*');
-  return res.json(allData);
-});
+/* 全商品の情報を取得 */
+const allProductsData = await fetch('/api/products');
+```
+
+```javascript
+/* 商品を選んで情報を取得 */
+const targetProductsData = await fetch('/api/products/:name');
 ```
 
 ## 現在login中userのcart内の商品を削除
 
 ```javascript
-/* 全件一括削除 */
-app.delete('/api/cart', async (req, res) => {
-  const userId = req.body.userId;
-  await knex('cart_items').where('cart_id', userId).delete();
-  return res.end();
+/* login user のcart 内の全ての商品を削除 */
+const allDataDeleteResponse = await fetch('/api/cart', {
+  method: 'DELETE',
 });
-/* 商品選択削除 */
+
+/* login user の cart 内の商品を選択削除 */
 app.delete('/api/cart/:userId', async (req, res) => {
   const targetId = req.body.cartId;
   await knex('cart_items').where('cart_items_id', targetId).delete();

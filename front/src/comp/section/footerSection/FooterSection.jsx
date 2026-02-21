@@ -5,8 +5,8 @@ export const FooterSection = () => {
   const textArray = [
     'TELL: 000-4444-3333',
     'mail: scissors@hoge.jp',
-    'place: xxx-ooo-cccc',
-    'representative: G',
+    'ADDRESS: 東京都港区元麻布３丁目１−３５ B2F',
+    'representative: Kani',
   ];
   const container = {
     hidden: { opacity: 0 },

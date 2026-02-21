@@ -29,7 +29,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
       body: JSON.stringify({ cartId: cartItemsId }),
     });
     const targetDeleteItem = await response.json();
-    toast.success(targetDeleteItem.data + 'をcancelしました。');
+    toast.warning(targetDeleteItem.data + 'をcancelしました。');
     setDeleteFlag((prev) => !prev);
   };
 
@@ -38,9 +38,18 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
   useEffect(() => {
     const getCartData = async () => {
       const currentUserId = JSON.parse(localStorage.getItem('authData')).userId;
-      const response = await fetch('/api/cart?userId=' + currentUserId);
+      const response = await fetch('/api/cart/' + currentUserId, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
       const data = await response.json();
-      setCartData(data);
+      /* 重複した注文を最新のものに更新 */
+      const uniq = data.reduce((result, obj) => {
+        result[obj.name] = obj;
+        return result;
+      }, {});
+      const uniqData = Object.values(uniq);
+      setCartData(uniqData);
     };
     getCartData();
   }, [deleteFlag]);
@@ -71,7 +80,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
                 </div>
                 <div>
                   <p>price</p>
-                  <p>{obj.price}</p>
+                  <p>{Number(obj.price).toLocaleString()}</p>
                 </div>
                 <div>
                   <p>count</p>
@@ -79,7 +88,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
                 </div>
                 <div>
                   <p>sum</p>
-                  <p>{obj.price * obj.count}</p>
+                  <p>{(obj.price * obj.count).toLocaleString()}</p>
                 </div>
               </motion.div>
               <div className="button-container">
@@ -95,9 +104,11 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
         })}
         <div>
           <div className="cart-button-container">
-            <Link to={'/checkOut'}>
-              <AnimationButton buttonValue={'check out'} />
-            </Link>
+            {cartData.length !== 0 && (
+              <Link to={'/checkOut'}>
+                <AnimationButton buttonValue={'check out'} />
+              </Link>
+            )}
             <AnimationButton
               onClickEvent={deleteAll}
               buttonValue={'All cancel'}

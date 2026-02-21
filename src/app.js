@@ -13,6 +13,16 @@ const buildServer = () => {
   app.use(express.static(path.join(__dirname, '../public')));
 
   /* cartに入れた商品と誰がどのcartを使っているかの情報吸い出し完了 */
+
+  /* login時のデータの取得 */
+  app.post('/api/login', async (req, res) => {
+    const body = req.body;
+    const currentUserId = await knex('users')
+      .insert({ name: body.userName, email: body.email })
+      .returning('*');
+    return res.send({ data: currentUserId[0] });
+  });
+
   app.post('/api/shopping/:id', async (req, res) => {
     /* このbodyをどのtableに入れる? */
     const body = req.body;
@@ -23,11 +33,6 @@ const buildServer = () => {
         message: '該当の商品がありません',
       });
     } else {
-      /* まずどんな商品が選ばれたか */
-      const targetProducts = await knex('products').where(
-        'name',
-        body.itemName,
-      );
       /* それを元にcart tableのcolumnに値をinsert */
       const findCurrentUserCart = await knex('cart').where(
         'user_id',
@@ -40,10 +45,10 @@ const buildServer = () => {
           massage: 'cartの作成が完了',
         });
       } else {
-        // /* cart_itemsへのinsert */
+        /* cart_itemsへのinsert */
         await knex('cart_items').insert({
           cart_id: findCurrentUserCart[0].cart_id,
-          product_id: targetProducts[0].products_id,
+          product_id: body.products_id,
           count: body.itemCount,
         });
         return res.send({
@@ -53,30 +58,11 @@ const buildServer = () => {
     }
   });
 
-  /* login時のデータの取得 */
-  app.post('/api/login', async (req, res) => {
-    const body = req.body;
-    const currentUserId = await knex('users')
-      .insert({ name: body.userName, email: body.email })
-      .returning('*');
-    return res.send({ data: currentUserId[0] });
-  });
-
   /* cartPageに移行時データの取得をして、そのデータを元にuiを作成 */
-  app.get('/api/cart', async (req, res) => {
-    const currentUserId = Number(req.query.userId);
-    if (!currentUserId) return res.end();
-    if (Number(req.params.userId)) return res.end();
+  app.get('/api/cart/:userId', async (req, res) => {
+    const userId = Number(req.params.userId);
+    if (!userId) return res.end();
 
-    /* currentUserIdの取得 */
-    /* それを元にcartの特定 */
-    const cartResponse = await knex('cart').where('user_id', currentUserId);
-    const targetCartId = cartResponse[0].cart_id;
-    /* それを元にcart内部の商品の特定 */
-    const targetCartInItems = await knex('cart_items').where(
-      'cart_id',
-      targetCartId,
-    );
     /* table同士の結合をして、必要なcolumnだけを抜粋した配列を整形 */
     const joinData = await knex('cart')
       .join('cart_items', 'cart.cart_id', 'cart_items.cart_id')
@@ -91,7 +77,8 @@ const buildServer = () => {
         'products.path',
         'products.stock',
       )
-      .where('cart.user_id', currentUserId);
+      .where('cart.user_id', userId);
+
     return res.send(joinData);
   });
 
@@ -101,6 +88,7 @@ const buildServer = () => {
     await knex('cart_items').where('cart_id', userId).delete();
     return res.end();
   });
+
   /* 指定した現在login中のuserのcartを削除 */
   app.delete('/api/cart/:userId', async (req, res) => {
     const targetId = req.body.cartId;
@@ -142,6 +130,25 @@ const buildServer = () => {
     }
   });
 
+  app.get('/api/checkout/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    /* userid経由でcartの中身を出力 */
+    const joinData = await knex('cart')
+      .join('cart_items', 'cart.cart_id', 'cart_items.cart_id')
+      .join('products', 'cart_items.product_id', 'products.products_id')
+      .select(
+        'cart.cart_id',
+        'cart.user_id',
+        'cart_items.count',
+        'cart_items.cart_items_id',
+        'products.name',
+        'products.price',
+        'products.path',
+        'products.stock',
+      )
+      .where('cart.user_id', userId);
+    return res.send(joinData);
+  });
   return app;
 };
 

@@ -16,6 +16,7 @@ export const Input = ({
         placeholder={placeHolder}
         type={inputType}
         className={className}
+        style={{ marginLeft: 10 }}
       />
     </label>
   );
