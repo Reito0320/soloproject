@@ -4,6 +4,7 @@ export const Input = ({
   className,
   inputTitle,
   onChangeFunc,
+  onKeydownFunc,
   placeHolder,
   inputType,
 }) => {
@@ -13,6 +14,7 @@ export const Input = ({
       <motion.input
         whileTap={{ y: -5 }}
         onChange={onChangeFunc}
+        onKeyDown={onKeydownFunc}
         placeholder={placeHolder}
         type={inputType}
         className={className}

@@ -3,8 +3,6 @@ import { AnimationButton } from '../../atoms/button/AnimationButton';
 import { Input } from '../../atoms/input/Input';
 import './ShoppingItem.css';
 import { easeInOut, motion } from 'motion/react';
-import { FooterSection } from '../../section/footerSection/FooterSection';
-import { CiKeyboard } from 'react-icons/ci';
 
 export const ShoppingItem = ({
   price,
@@ -73,6 +71,7 @@ export const ShoppingItem = ({
             <AnimationButton
               onClickEvent={getUserTakeInCartData}
               buttonValue={'カートへ'}
+              className="shopping-animation-button"
             />
           </div>
         </motion.div>
