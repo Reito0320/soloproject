@@ -5,26 +5,31 @@ import { AnimationButton } from '../../atoms/button/AnimationButton';
 import { useNavigate } from 'react-router-dom';
 import { FooterSection } from '../../section/footerSection/FooterSection';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/ReactToastify.css';
 
 export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
   const navigate = useNavigate();
 
   const deleteAll = async () => {
     const currentUserId = JSON.parse(localStorage.getItem('authData')).userId;
-    await fetch('/api/cart/' + currentUserId, {
+    await fetch('/api/cart', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: currentUserId }),
     });
     navigate('/shopping');
   };
 
   const targetDelete = async (cartItemsId) => {
     const currentUserId = JSON.parse(localStorage.getItem('authData')).userId;
-    await fetch(`/api/cart/${currentUserId}`, {
+    const response = await fetch(`/api/cart/${currentUserId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cartId: cartItemsId }),
     });
+    const targetDeleteItem = await response.json();
+    toast.success(targetDeleteItem.data + 'をcancelしました。');
     setDeleteFlag((prev) => !prev);
   };
 
@@ -43,6 +48,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
   return (
     <>
       <main className="cart-main">
+        <ToastContainer autoClose={1500} />
         <h1 className="cart-page-title">My Cart</h1>
         {cartData.map((obj, index) => {
           return (

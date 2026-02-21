@@ -4,6 +4,7 @@ import { Input } from '../../atoms/input/Input';
 import './ShoppingItem.css';
 import { easeInOut, motion } from 'motion/react';
 import { FooterSection } from '../../section/footerSection/FooterSection';
+import { CiKeyboard } from 'react-icons/ci';
 
 export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
   const [itemCount, setItemCount] = useState(0);
@@ -15,7 +16,7 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
 
     const userId = JSON.parse(localStorage.getItem('authData')).userId;
 
-    const result = JSON.stringify({
+    const userChoiceItem = JSON.stringify({
       itemName: itemTitle,
       itemPrice: price,
       itemCount: itemCount,
@@ -24,9 +25,8 @@ export const ShoppingItem = ({ price, itemTitle, pictureSrc, stock }) => {
     await fetch('/api/shopping/004', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: result,
+      body: userChoiceItem,
     });
-
     setIsItemTakeInCart(true);
     document.querySelector('.shopping-item-input').value = '';
   };

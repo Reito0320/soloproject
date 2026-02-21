@@ -35,23 +35,21 @@ const buildServer = () => {
       );
       /* 初回のみcartの作成 */
       if (JSON.stringify(findCurrentUserCart) === JSON.stringify([])) {
-        const insertUsersResult = await knex('cart')
-          .insert({ user_id: body.userId })
-          .returning('*');
-
+        await knex('cart').insert({ user_id: body.userId });
         return res.send({
           massage: 'cartの作成が完了',
         });
+      } else {
+        // /* cart_itemsへのinsert */
+        await knex('cart_items').insert({
+          cart_id: findCurrentUserCart[0].cart_id,
+          product_id: targetProducts[0].products_id,
+          count: body.itemCount,
+        });
+        return res.send({
+          massage: 'cart_itemsへの追加が完了',
+        });
       }
-      // /* cart_itemsへのinsert */
-      await knex('cart_items').insert({
-        cart_id: findCurrentUserCart[0].cart_id,
-        product_id: targetProducts[0].products_id,
-        count: body.itemCount,
-      });
-      return res.send({
-        massage: 'cart_itemsへの追加が完了',
-      });
     }
   });
 
@@ -97,26 +95,31 @@ const buildServer = () => {
     return res.send(joinData);
   });
 
-  /* 指定した現在login中のuserの全てのcartを削除 */
+  /* 現在login中userのcart内の商品を全削除 */
+  app.delete('/api/cart', async (req, res) => {
+    const userId = req.body.userId;
+    await knex('cart_items').where('cart_id', userId).delete();
+    return res.end();
+  });
+  /* 指定した現在login中のuserのcartを削除 */
   app.delete('/api/cart/:userId', async (req, res) => {
-    const userId = req.params.userId;
-
-    // console.log(targetId);
-    /* 全削除の場合 */
-    if (!req.body) {
-      await knex('cart_items').where('cart_id', userId).delete();
-      return res.end();
-    } else {
-      const targetId = req.body.cartId;
-      await knex('cart_items').where('cart_items_id', targetId).delete();
-      return res.end();
-    }
+    const targetId = req.body.cartId;
+    const delItem = await knex('cart_items')
+      .where('cart_items_id', targetId)
+      .delete()
+      .returning('*');
+    const productId = delItem[0].product_id;
+    const targetItemData = await knex('products').where(
+      'products_id',
+      productId,
+    );
+    return res.send({ data: targetItemData[0].name });
   });
 
   /* 全データの取得 */
   app.get('/api/products', async (req, res) => {
     const allData = await knex('products').select('*');
-    return res.json(allData);
+    return res.send(allData);
   });
 
   /* productsのデータをparamsで選んで取得 */

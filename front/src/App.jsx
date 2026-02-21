@@ -29,9 +29,13 @@ function App() {
 
   useEffect(() => {
     const gatInitialData = async () => {
-      const response = await fetch('/api/products');
-      const result = await response.json();
-      setProductsData(result);
+      try {
+        const response = await fetch('/api/products');
+        const result = await response.json();
+        setProductsData(result);
+      } catch (error) {
+        throw new Error(error.message);
+      }
     };
     gatInitialData();
 
