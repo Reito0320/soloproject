@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import './Cart.css';
 import { AnimationButton } from '../../atoms/button/AnimationButton';

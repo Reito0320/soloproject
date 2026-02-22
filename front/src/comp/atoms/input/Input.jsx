@@ -4,9 +4,10 @@ export const Input = ({
   className,
   inputTitle,
   onChangeFunc,
-  onKeydownFunc,
+  onFucus,
   placeHolder,
   inputType,
+  inputName,
 }) => {
   return (
     <label>
@@ -14,9 +15,10 @@ export const Input = ({
       <motion.input
         whileTap={{ y: -5 }}
         onChange={onChangeFunc}
-        onKeyDown={onKeydownFunc}
         placeholder={placeHolder}
+        onFocus={onFucus}
         type={inputType}
+        name={inputName}
         className={className}
         style={{ marginLeft: 10 }}
       />

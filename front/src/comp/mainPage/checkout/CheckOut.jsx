@@ -1,11 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import './CheckOut.css';
 import { FooterSection } from '../../section/footerSection/FooterSection';
 import { CheckoutInput } from '../../section/checkoutInput/CheckoutInput';
+import { AnimationButton } from '../../atoms/button/AnimationButton';
 
-export const CheckOut = ({ cartData, setCartData }) => {
+export const CheckOut = ({ cartData, setCartData, paymentData }) => {
   /* DB経由でcartの状態を更新し、uiの取得 */
+  /* paymentの選択まで進み入力が終わっている場合はこの入力をスキップする。 */
   useEffect(() => {
     const getCartData = async () => {
       try {
@@ -60,8 +62,25 @@ export const CheckOut = ({ cartData, setCartData }) => {
           cartData.reduce((acc, cur) => acc + cur.count, 0)
         ).toLocaleString()}
       </h2>
+      {localStorage.getItem('checkoutData') ? (
+        <div className="checkoutinput-main">
+          <div className="checkoutinput-section">
+            {Object.values(
+              JSON.parse(localStorage.getItem('checkoutData')),
+            ).map((value, index) => (
+              <p key={index}>{value}</p>
+            ))}
+            <AnimationButton
+              className="checkoutinput-button"
+              onClickEvent={() => console.log('done')}
+              buttonValue={'done'}
+            />
+          </div>
+        </div>
+      ) : (
+        <CheckoutInput paymentData={paymentData} />
+      )}
 
-      <CheckoutInput />
       <FooterSection />
     </>
   );

@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '../../atoms/input/Input';
 import './CheckoutInput.css';
 import { AnimationButton } from '../../atoms/button/AnimationButton';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-export const CheckoutInput = () => {
+/* payment使うかどうかわからん */
+export const CheckoutInput = ({ paymentData }) => {
   const [checkoutData, setCheckOutData] = useState({});
 
   const navigate = useNavigate();
   const authData = JSON.parse(localStorage.getItem('authData'));
+
+  /* それぞれのinputの情報をobject管理 */
   const inputFunc = (inputSection, e) => {
     setCheckOutData((prev) => ({
       ...prev,
@@ -21,28 +24,27 @@ export const CheckoutInput = () => {
     if (Object.keys(checkoutData).length !== 6)
       return toast.error('入力が完了していません。');
 
-    toast.success('入力が完了しました。');
-    setTimeout(() => {
-      navigate('/checkout/credit');
-    }, 1500);
+    /* データを保存して次回からは自動で表示 */
+    localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+    navigate('/checkOut/paymentMethod');
   };
 
   return (
-    <>
+    <div className="checkoutinput-main">
       <ToastContainer autoClose={0} />
       <div className="checkoutinput-section">
         <p>
           <Input
             inputType={'text'}
             onChangeFunc={(e) => inputFunc('name', e)}
-            inputTitle={'Your Name'}
+            inputTitle={'Name'}
             placeHolder={authData.userName}
           />
         </p>
         <p className="checkoutinput-tell-container">
           <Input
             className={'checkoutinput-tell-input'}
-            inputTitle={'Your Tell'}
+            inputTitle={'Tell'}
             placeHolder={'000'}
             onChangeFunc={(e) => inputFunc('tellFirst', e)}
           />
@@ -61,7 +63,7 @@ export const CheckoutInput = () => {
           <Input
             inputType={'text'}
             onChangeFunc={(e) => inputFunc('mail', e)}
-            inputTitle={'Your Mail'}
+            inputTitle={'Mail'}
             placeHolder={'scissors@email'}
           />
         </p>
@@ -69,7 +71,7 @@ export const CheckoutInput = () => {
           <Input
             inputType={'text'}
             onChangeFunc={(e) => inputFunc('address', e)}
-            inputTitle={'Your address'}
+            inputTitle={'address'}
             placeHolder={'東京都港区元麻布３丁目１−３５ B2F'}
           />
         </p>
@@ -81,6 +83,6 @@ export const CheckoutInput = () => {
           />
         </p>
       </div>
-    </>
+    </div>
   );
 };

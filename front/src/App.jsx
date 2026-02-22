@@ -9,7 +9,7 @@ import { Login } from './comp/mainPage/login/Login';
 import { Logout } from './comp/mainPage/logout/Logout';
 import { Cart } from './comp/mainPage/cart/Cart';
 import { CheckOut } from './comp/mainPage/checkout/CheckOut';
-import { Credit } from './comp/mainPage/credit/Credit';
+import { PaymentMethod } from './comp/mainPage/paymentMethod/paymentMethod';
 
 function App() {
   /* 待機画面のアニメーションのためのstate */
@@ -21,6 +21,7 @@ function App() {
   const [productsData, setProductsData] = useState([]);
   const [cartData, setCartData] = useState([]);
   const [deleteFlag, setDeleteFlag] = useState(false);
+  const [paymentData, setPaymentData] = useState({});
 
   /* 目標 */
   /* 待機画面のアニメーション実装 */
@@ -93,9 +94,18 @@ function App() {
         ></Route>
         <Route
           path="/checkOut"
-          element={<CheckOut cartData={cartData} setCartData={setCartData} />}
+          element={
+            <CheckOut
+              cartData={cartData}
+              setCartData={setCartData}
+              paymentData={paymentData}
+            />
+          }
         ></Route>
-        <Route path="/checkOut/credit" element={<Credit />}></Route>
+        <Route
+          path="/checkOut/paymentMethod"
+          element={<PaymentMethod setPaymentData={setPaymentData} />}
+        ></Route>
       </Routes>
     </>
   );

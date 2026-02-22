@@ -1,0 +1,19 @@
+.payment-credit {
+  margin: 100px;
+}
+
+.payment-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0px;
+}
+
+.payment-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0px;
+}
