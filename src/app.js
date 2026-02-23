@@ -14,7 +14,7 @@ const buildServer = () => {
 
   /* cartに入れた商品と誰がどのcartを使っているかの情報吸い出し完了 */
 
-  /* login時のデータの取得とcartの作成 */
+  /* users table と cart table にデータを追加 */
   app.post('/api/login', async (req, res) => {
     const body = req.body;
     const currentUserId = await knex('users')
@@ -27,6 +27,7 @@ const buildServer = () => {
     return res.send({ data: currentUserId[0] });
   });
 
+  /* cart に user が追加したデータを cart_items table に追加*/
   app.post('/api/shopping/:id', async (req, res) => {
     /* このbodyをどのtableに入れる? */
     const body = req.body;
@@ -52,7 +53,7 @@ const buildServer = () => {
     }
   });
 
-  /* cartPageに移行時データの取得をして、そのデータを元にuiを作成 */
+  /* cartPageに移行時データの取得をし、そのデータを元にUIを作成 */
   app.get('/api/cart/:userId', async (req, res) => {
     const userId = Number(req.params.userId);
     if (!userId) return res.end();
