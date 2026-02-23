@@ -65,7 +65,7 @@ export const Cart = ({ deleteFlag, setDeleteFlag, cartData, setCartData }) => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                whileHover={{ x: -20, y: -5 }}
+                whileHover={{ x: -20 }}
                 transition={{ duration: 0.8 }}
                 className="cart-data-column"
               >

@@ -19,6 +19,7 @@ export const ShoppingItem = ({
   const postCartData = async (stock) => {
     /* inputの入力がなかった場合の処理 */
     if (!itemCount) return;
+    if (stock === 0) return toast.error('在庫入荷までお待ちください。');
     if (stock < itemCount) return toast.error('在庫を上回っています');
 
     const userId = JSON.parse(localStorage.getItem('authData')).userId;

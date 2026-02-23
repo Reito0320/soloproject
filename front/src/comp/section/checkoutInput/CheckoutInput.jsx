@@ -59,8 +59,13 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
       postOrdersTable();
       patchStock();
       deleteCartItemsTable();
-      navigate('/');
-      location.reload();
+      toast.success(
+        'ご注文ありがとうございます。詳細をmailにて送らせていただきました。',
+      );
+      setTimeout(() => {
+        navigate('/');
+        location.reload();
+      }, 2000);
     }
   };
 
@@ -99,6 +104,7 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
 
   return (
     <>
+      <ToastContainer autoClose={0} />
       {/* すでにcheckoutDataを入力していたら省略 */}
       {localStorage.getItem('checkoutData') ? (
         <div className="checkoutinput-main">
@@ -127,7 +133,6 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
       ) : (
         /* checkoutDataの入力が初回だったら */
         <div className="checkoutinput-main">
-          <ToastContainer autoClose={0} />
           <div className="checkoutinput-section">
             <p>
               <Input
