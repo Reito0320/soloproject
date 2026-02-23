@@ -28,7 +28,6 @@ export const Login = ({ setIsLogin }) => {
     });
 
     /* insertしてincrementされたidを取得しlocalstorageへ保存 */
-    /* このidを使ってcartページを押した際にそのuserという特定ができる */
     const result = await response.json();
     const currentUserId = result.data.user_id;
 
@@ -36,17 +35,16 @@ export const Login = ({ setIsLogin }) => {
     userData.userId = currentUserId;
     localStorage.setItem('authData', JSON.stringify(userData));
 
-    /* ここでcart */
-
     setIsLogin((prev) => !prev);
     navigate('/');
+    location.reload();
   };
   return (
     <>
       <div className="section">
         <div className="login-box">
           <h1>ログインページ</h1>
-          <div className="button-cont">
+          <div className="login-button-container">
             <AnimationButton
               onClickEvent={userGoogleLogin}
               buttonValue={'Google'}

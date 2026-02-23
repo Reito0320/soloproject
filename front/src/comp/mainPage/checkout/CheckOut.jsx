@@ -3,11 +3,15 @@ import { motion } from 'motion/react';
 import './CheckOut.css';
 import { FooterSection } from '../../section/footerSection/FooterSection';
 import { CheckoutInput } from '../../section/checkoutInput/CheckoutInput';
-import { AnimationButton } from '../../atoms/button/AnimationButton';
 
 export const CheckOut = ({ cartData, setCartData, paymentData }) => {
+  const getSumPrice = () => {
+    return (
+      cartData.reduce((acc, cur) => acc + cur.price, 0) *
+      cartData.reduce((acc, cur) => acc + cur.count, 0)
+    );
+  };
   /* DB経由でcartの状態を更新し、uiの取得 */
-  /* paymentの選択まで進み入力が終わっている場合はこの入力をスキップする。 */
   useEffect(() => {
     const getCartData = async () => {
       try {
@@ -25,8 +29,8 @@ export const CheckOut = ({ cartData, setCartData, paymentData }) => {
       }
     };
     getCartData();
-    // setSumPrice(cartData.reduce((acc, cur) => acc + cur.price, 0));
   }, []);
+
   return (
     <>
       <h1 style={{ textAlign: 'center' }}>check out page</h1>
@@ -56,30 +60,14 @@ export const CheckOut = ({ cartData, setCartData, paymentData }) => {
       </div>
 
       <h2 style={{ textAlign: 'center' }}>
-        sum price:{' '}
-        {(
-          cartData.reduce((acc, cur) => acc + cur.price, 0) *
-          cartData.reduce((acc, cur) => acc + cur.count, 0)
-        ).toLocaleString()}
+        sum price: {getSumPrice().toLocaleString()}
       </h2>
-      {localStorage.getItem('checkoutData') ? (
-        <div className="checkoutinput-main">
-          <div className="checkoutinput-section">
-            {Object.values(
-              JSON.parse(localStorage.getItem('checkoutData')),
-            ).map((value, index) => (
-              <p key={index}>{value}</p>
-            ))}
-            <AnimationButton
-              className="checkoutinput-button"
-              onClickEvent={() => console.log('done')}
-              buttonValue={'done'}
-            />
-          </div>
-        </div>
-      ) : (
-        <CheckoutInput paymentData={paymentData} />
-      )}
+
+      <CheckoutInput
+        cartData={cartData}
+        sumPrice={getSumPrice()}
+        paymentData={paymentData}
+      />
 
       <FooterSection />
     </>

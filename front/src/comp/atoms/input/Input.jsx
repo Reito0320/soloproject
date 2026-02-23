@@ -8,6 +8,7 @@ export const Input = ({
   placeHolder,
   inputType,
   inputName,
+  maxLength,
 }) => {
   return (
     <label>
@@ -19,6 +20,7 @@ export const Input = ({
         onFocus={onFucus}
         type={inputType}
         name={inputName}
+        maxLength={maxLength}
         className={className}
         style={{ marginLeft: 10 }}
       />

@@ -9,13 +9,7 @@ export const Home = () => {
   return (
     <>
       <section className="main-container">
-        <Figure
-          pictureURL={'/001.jpg'}
-          captionTitle={'プロの切れ味'}
-          captionText={
-            'test test test test test test test test test test test test test test test test test test test test'
-          }
-        />
+        <Figure pictureURL={'/001.jpg'} captionTitle={'プロの切れ味'} />
         <TextPR />
         <BigPhoto BigPhotoURL={'/002.jpg'} BigPhotoAlt={'ハサミ'} />
         <FooterSection />

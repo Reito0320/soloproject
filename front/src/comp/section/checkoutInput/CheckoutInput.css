@@ -12,6 +12,14 @@
   font-size: x-large;
 }
 
+.checkout-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
 .checkoutinput-button {
 }
 
@@ -24,4 +32,8 @@
 
 .checkoutinput-tell-input {
   width: 50px;
+}
+
+.re-checkoutinput {
+  text-align: center;
 }

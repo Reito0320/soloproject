@@ -17,7 +17,10 @@ export const Figure = ({
       <figure className="figure">
         <div className="caption-side">
           <h1 className="caption-title">{captionTitle}</h1>
-          <figcaption className="figcaption">{captionText}</figcaption>
+          <p>精密に研がれた刃が職人品質で長く使えるハサミ</p>
+          <p>使い手の使いやすさに極限までこだわり抜いた逸品</p>
+          <p>普段使いから、プロ仕様まで幅広く販売しています。</p>
+          <p>修理のご相談も承っておりますのでお気軽にご相談ください。</p>
         </div>
         <img className="image" src={pictureURL} alt={pictureAlt} />
       </figure>

@@ -14,6 +14,7 @@ export const Shopping = ({ productsData }) => {
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.8, ease: easeIn }}
               className="cart-data-column"
             >
