@@ -28,11 +28,13 @@ export const CheckOut = ({ cartData, setCartData, paymentData }) => {
   const getPrevOrder = async () => {
     const userId = JSON.parse(localStorage.getItem('authData')).userId;
     const prevOrderResponse = await fetch('/api/checkout/prev/' + userId);
-    const foo = await prevOrderResponse.json();
+    const message = await prevOrderResponse.json();
+    console.log(message);
   };
   /* DB経由でcartの状態を更新し、uiの取得 */
   useEffect(() => {
     getCartData();
+    getPrevOrder();
   }, []);
 
   return (

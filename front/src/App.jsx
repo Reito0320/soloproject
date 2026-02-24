@@ -9,7 +9,7 @@ import { Login } from './comp/mainPage/login/Login';
 import { Logout } from './comp/mainPage/logout/Logout';
 import { Cart } from './comp/mainPage/cart/Cart';
 import { CheckOut } from './comp/mainPage/checkout/CheckOut';
-import { PaymentMethod } from './comp/mainPage/paymentMethod/paymentMethod';
+import { PaymentMethod } from './comp/mainPage/paymentMethod/PaymentMethod';
 
 function App() {
   /* 待機画面のアニメーションのためのstate */
