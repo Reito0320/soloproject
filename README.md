@@ -1,6 +1,7 @@
 # scissors　shop
 
 ## 各スキーマの役割
+<img width="882" height="639" alt="Image" src="https://github.com/user-attachments/assets/1069a409-6ac4-4ff4-86ab-cf383604fb2c" />
 
 ## apiのエンドポイントを叩くと得られる情報
 
