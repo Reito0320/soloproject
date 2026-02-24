@@ -153,6 +153,7 @@ const buildServer = () => {
     return res.end();
   });
 
+  /* 購入した商品のstockデータを更新 */
   app.patch('/api/checkout/:userId', async (req, res) => {
     const userId = req.params.userId;
     const cartItems = await knex('cart_items').where('cart_id', userId);

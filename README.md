@@ -1,26 +1,6 @@
-# 各スキーマの役割
+# scissors　shop
 
-## users table
-
-### user DataDB
-
-## products table
-
-### 各商品のDB
-
-## cart table
-
-### userのcartDB
-
-## cart_items table
-
-### cartにitemが何個入っているかのDB
-
-## order table
-
-###
-
-## order_items table
+## 各スキーマの役割
 
 ## apiのエンドポイントを叩くと得られる情報
 
@@ -38,7 +18,12 @@ const getTargetProductsData = await fetch('/api/products/:name');
 
 ```javascript
 /* cartPageに移行時データの取得をし、そのデータを元にUIを作成 */
-const get;
+const getCurrentUserCart = await fetch('/api/cart/:userId');
+```
+
+```javascript
+/* 過去の注文情報をpic */
+const previousOrderList = await fetch('/api/checkout/prev/:userId');
 ```
 
 ### POST
@@ -57,15 +42,18 @@ const postCartItem = await fetch('/api/shopping/:id');
 
 ```javascript
 /* login user のcart 内の全ての商品を削除 */
-const allDataDeleteResponse = await fetch('/api/cart', {
-  method: 'DELETE',
-});
+const allDataDeleteResponse = await fetch('/api/cart', { method: 'DELETE' });
 
 /* login user の cart 内の商品を選択削除 */
-app.delete('/api/cart/:userId', async (req, res) => {
-  const targetId = req.body.cartId;
-  await knex('cart_items').where('cart_items_id', targetId).delete();
-  return res.end();
+const selectDelete = await fetch('/api/cart/:userId', { method: 'DELETE' });
+```
+
+### PATCH
+
+```javascript
+/* 購入した商品のstockデータを更新 */
+const updateStockData = await fetch('/api/checkout/:userId', {
+  method: 'PATCH',
 });
 ```
 
@@ -94,11 +82,11 @@ EC_PORT=
 EC_PASSWORD=
 ```
 
+DBをリセットしたい場合はこちらのコマンドを実行してください。
+
 ```shell
 npm run migrate:rollback
 ```
-
-DBをリセットしたい場合はこちらのコマンドを実行してください。
 
 ## 使用したライブラリ
 
@@ -122,6 +110,7 @@ while...にてanimationの発火を制御できる。
 scrollアニメーションを簡単につけられます。
 詳しいことは下記動画を見て、実践的な使い方を学びましょう。
 https://www.youtube.com/watch?v=9-fO_2xTpgY
+
 **公式ドキュメント**
 https://motion.dev/
 
@@ -140,6 +129,7 @@ itemを削除したり購入したりと、user側のアクションに対して
 実装も簡単ですし、設定も柔軟かつ簡単にできます。
 こちらも動画で使い方を学べます。
 https://www.youtube.com/watch?v=v5EMvzCe7bM
+
 **公式ドキュメント**
 https://fkhadra.github.io/react-toastify/introduction/
 
@@ -150,6 +140,7 @@ https://fkhadra.github.io/react-toastify/introduction/
 ```
 
 icon画像を手軽にimportできます。
+
 **公式ドキュメント**
 https://react-icons.github.io/react-icons/
 
@@ -168,5 +159,6 @@ createRoot(document.getElementById('root')).render(
 ```
 
 front上のページ遷移をしてくれます。
+
 **公式ドキュメント**
 https://reactrouter.com/
