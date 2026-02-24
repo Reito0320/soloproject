@@ -16,7 +16,7 @@ const firebaseConfig = {
   measurementId: 'G-VMCXH7SGTN',
 };
 /* テンプレートから下記三つをimport */
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const app = initializeApp(firebaseConfig);
@@ -24,5 +24,6 @@ const app = initializeApp(firebaseConfig);
 /* 初期設定 */
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const gitHubProvider = new GithubAuthProvider();
 const db = getFirestore(app);
-export { auth, provider, db };
+export { auth, provider, db, gitHubProvider };

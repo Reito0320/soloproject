@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
 import './CheckOut.css';
 import { FooterSection } from '../../section/footerSection/FooterSection';
 import { CheckoutInput } from '../../section/checkoutInput/CheckoutInput';
-import { PrevOrder } from '../../section/prevOrder/PrevOrder';
+import { CheckoutItemView } from '../../section/checkoutItemView/CheckoutItemView';
 
 export const CheckOut = ({ cartData, setCartData, paymentData }) => {
-  const [prevOrderList, setPrevOrderList] = useState([]);
+  const [prevOrderList, setPrevOrderList] = useState(null);
 
   const getSumPrice = () => {
     return (
@@ -52,41 +51,23 @@ export const CheckOut = ({ cartData, setCartData, paymentData }) => {
   return (
     <>
       <h1 style={{ textAlign: 'center' }}>check out page</h1>
-      <div className="checkout-cart-section">
-        {cartData.map((obj, index) => (
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="checkout-item-card-container"
-            key={index}
-          >
-            <img
-              width={200}
-              height={200}
-              src={`/${obj.path}.jpg`}
-              alt={obj.name}
-            />
-            <p className="checkout-item">name: {obj.name}</p>
-            <p className="checkout-item">price: {obj.price.toLocaleString()}</p>
-            <p className="checkout-item">count: {obj.count}</p>
-            <p className="checkout-item">
-              sum: {(obj.price * obj.count).toLocaleString()}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-
+      <CheckoutItemView cartData={cartData} />
       <h2 style={{ textAlign: 'center' }}>
         sum price: {getSumPrice().toLocaleString()}
       </h2>
-
       <CheckoutInput
         cartData={cartData}
         sumPrice={getSumPrice()}
         paymentData={paymentData}
       />
-      <PrevOrder prevOrderList={prevOrderList} />
+      {prevOrderList && (
+        <div className="checkout-previous-items-container">
+          <div className="checkout-prevItems">
+            <h2 style={{ color: 'white' }}>previous order Items</h2>
+            <CheckoutItemView cartData={prevOrderList} />
+          </div>
+        </div>
+      )}
       <FooterSection />
     </>
   );

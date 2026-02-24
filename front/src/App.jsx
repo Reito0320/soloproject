@@ -35,6 +35,7 @@ function App() {
         const result = await response.json();
         setProductsData(result);
       } catch (error) {
+        console.error('getInitial error');
         throw new Error(error.message);
       }
     };

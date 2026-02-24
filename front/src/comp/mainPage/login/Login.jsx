@@ -1,5 +1,5 @@
 import './Login.css';
-import { db, auth, provider } from '../../../utils/firebase';
+import { db, auth, provider, gitHubProvider } from '../../../utils/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AnimationButton } from '../../atoms/button/AnimationButton';
@@ -39,6 +39,11 @@ export const Login = ({ setIsLogin }) => {
     navigate('/');
     location.reload();
   };
+
+  const userGitHubLogin = async () => {
+    const res = await signInWithPopup(auth, gitHubProvider);
+    console.log(res);
+  };
   return (
     <>
       <div className="section">
@@ -51,7 +56,7 @@ export const Login = ({ setIsLogin }) => {
             ></AnimationButton>
 
             <AnimationButton
-              // onClickEvent={userLoginFunc}
+              onClickEvent={userGitHubLogin}
               buttonValue={'GitHub'}
             ></AnimationButton>
             <AnimationButton

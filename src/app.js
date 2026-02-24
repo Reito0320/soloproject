@@ -228,6 +228,31 @@ const buildServer = () => {
     }
     return res.send({ message: 'orderItemGood' });
   });
+
+  /* 過去の注文情報をpic */
+  app.get('/api/checkout/prev/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const prevData = await knex('order').where('user_id', userId);
+    const prevOrderItems = [];
+    for (const obj of prevData) {
+      const prevOrderItem = await knex('order_items').where(
+        'order_id',
+        obj.order_id,
+      );
+      const productsItem = await knex('products').where(
+        'products_id',
+        prevOrderItem[0].product_id,
+      );
+      const cash = {
+        name: productsItem[0].name,
+        count: prevOrderItem[0].count,
+        price: prevOrderItem[0].count * prevOrderItem[0].price,
+        path: productsItem[0].path,
+      };
+      prevOrderItems.push(cash);
+    }
+    return res.send(prevOrderItems);
+  });
   return app;
 };
 

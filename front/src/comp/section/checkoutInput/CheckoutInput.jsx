@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Input } from '../../atoms/input/Input';
 import './CheckoutInput.css';
 import { AnimationButton } from '../../atoms/button/AnimationButton';
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 
 /* payment使うかどうかわからん */
 export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
@@ -87,9 +87,35 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
     }));
   };
 
+  const inputCheck = (data) => {
+    if (data.length !== 6) {
+      toast.error('入力が完了していません。');
+      return true;
+    }
+  };
+
+  const inputLengthCheck = (data) => {
+    let result = false;
+    const cash = [];
+    data.forEach((key) => {
+      if (key === 'tellFirst' && checkoutData[key].length !== 3)
+        cash.push(true);
+      if (key === 'tellSecond' && checkoutData[key].length !== 4)
+        cash.push(true);
+      if (key === 'tellThird' && checkoutData[key].length !== 4)
+        cash.push(true);
+    });
+    if (cash.includes(true)) {
+      toast.error('Tell の入力の長さが不正です。');
+      result = true;
+    }
+    return result;
+  };
+
   const nextRenderPage = () => {
-    if (Object.keys(checkoutData).length !== 6)
-      return toast.error('入力が完了していません。');
+    const checkoutKeys = Object.keys(checkoutData);
+    if (inputCheck(checkoutKeys)) return;
+    if (inputLengthCheck(checkoutKeys)) return;
 
     const newData = {
       name: checkoutData.name,
@@ -104,7 +130,7 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
 
   return (
     <>
-      <ToastContainer autoClose={0} />
+      <ToastContainer autoClose={2000} />
       {/* すでにcheckoutDataを入力していたら省略 */}
       {localStorage.getItem('checkoutData') ? (
         <div className="checkoutinput-main">
@@ -136,6 +162,7 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
           <div className="checkoutinput-section">
             <p>
               <Input
+                className={'checkoutinputs'}
                 inputType={'text'}
                 onChangeFunc={(e) => inputFunc('name', e)}
                 inputTitle={'Name'}
@@ -162,6 +189,7 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
             </p>
             <p>
               <Input
+                className={'checkoutinputs'}
                 inputType={'text'}
                 onChangeFunc={(e) => inputFunc('mail', e)}
                 inputTitle={'Mail'}
@@ -170,9 +198,10 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
             </p>
             <p>
               <Input
+                className={'checkoutinputs'}
                 inputType={'text'}
                 onChangeFunc={(e) => inputFunc('address', e)}
-                inputTitle={'address'}
+                inputTitle={'Address'}
                 placeHolder={'東京都港区元麻布３丁目１−３５ B2F'}
               />
             </p>

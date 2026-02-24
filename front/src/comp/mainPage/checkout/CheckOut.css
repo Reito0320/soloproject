@@ -11,8 +11,19 @@
   border: solid;
   box-shadow: 10px 10px 15px -5px #777777;
   border-radius: 10px;
+  background-color: white;
 }
 
 .checkout-item-title {
   font-weight: bold;
+}
+
+.checkout-previous-items-container {
+  text-align: center;
+}
+
+.checkout-prevItems {
+  opacity: 0.5;
+  padding: 60px;
+  background-color: cadetblue;
 }
