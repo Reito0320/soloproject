@@ -50,7 +50,6 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });
-    localStorage.removeItem('checkoutData');
   };
 
   const lastQuestion = () => {
@@ -63,6 +62,7 @@ export const CheckoutInput = ({ cartData, paymentData, sumPrice }) => {
         'ご注文ありがとうございます。詳細をmailにて送らせていただきました。',
       );
       setTimeout(() => {
+        // localStorage.removeItem('checkoutData');
         navigate('/');
         location.reload();
       }, 2000);
