@@ -6,6 +6,8 @@ import { CheckoutInput } from '../../section/checkoutInput/CheckoutInput';
 import { PrevOrder } from '../../section/prevOrder/PrevOrder';
 
 export const CheckOut = ({ cartData, setCartData, paymentData }) => {
+  const [prevOrderList, setPrevOrderList] = useState([]);
+
   const getSumPrice = () => {
     return (
       cartData.reduce((acc, cur) => acc + cur.price, 0) *
@@ -14,22 +16,32 @@ export const CheckOut = ({ cartData, setCartData, paymentData }) => {
   };
 
   const getCartData = async () => {
-    const userId = JSON.parse(localStorage.getItem('authData')).userId;
-    const response = await fetch('/api/checkout/' + userId);
-    const data = await response.json();
-    const uniq = data.reduce((result, obj) => {
-      result[obj.name] = obj;
-      return result;
-    }, {});
-    const uniqData = Object.values(uniq);
-    setCartData(uniqData);
+    try {
+      const userId = JSON.parse(localStorage.getItem('authData')).userId;
+      const response = await fetch('/api/checkout/' + userId);
+      const data = await response.json();
+      const uniq = data.reduce((result, obj) => {
+        result[obj.name] = obj;
+        return result;
+      }, {});
+      const uniqData = Object.values(uniq);
+      setCartData(uniqData);
+    } catch (error) {
+      console.error('cartDataの取得に失敗しました。');
+      throw new Error(error.message);
+    }
   };
 
   const getPrevOrder = async () => {
-    const userId = JSON.parse(localStorage.getItem('authData')).userId;
-    const prevOrderResponse = await fetch('/api/checkout/prev/' + userId);
-    const message = await prevOrderResponse.json();
-    console.log(message);
+    try {
+      const userId = JSON.parse(localStorage.getItem('authData')).userId;
+      const prevOrderResponse = await fetch('/api/checkout/prev/' + userId);
+      const prevData = await prevOrderResponse.json();
+      setPrevOrderList(prevData);
+    } catch (error) {
+      console.error('prevOrderの取得に失敗しました。');
+      throw new Error(error.message);
+    }
   };
   /* DB経由でcartの状態を更新し、uiの取得 */
   useEffect(() => {
@@ -74,7 +86,7 @@ export const CheckOut = ({ cartData, setCartData, paymentData }) => {
         sumPrice={getSumPrice()}
         paymentData={paymentData}
       />
-      <PrevOrder />
+      <PrevOrder prevOrderList={prevOrderList} />
       <FooterSection />
     </>
   );
